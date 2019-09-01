@@ -11,7 +11,6 @@ export class ImagenPipe implements PipeTransform {
     if (!imagen) {
       imagen = '';
     }
-    console.log(`imagen..: ${imagen}`);
     // Si es google. Regresa imagen sin transformación
     if (imagen.indexOf('https') >= 0) {
        return imagen;
@@ -33,7 +32,6 @@ export class ImagenPipe implements PipeTransform {
         url = `${URL_SERVICIOS}/imagenes/usuarios/xxx`;
         break;
     }
-    console.log(url);
     return url;
   }
 
