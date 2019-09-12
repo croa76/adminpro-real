@@ -17,6 +17,16 @@
     height: 50px;
 }
 
+.img-100 {
+    width: 100px;
+    height: 100px;
+}
+
+.img-150 {
+    width: 150px;
+    height: 150px;
+}
+
 .fondo-negro {
     background-color: rgba(0, 0, 0, .4);
     position: fixed;
@@ -29,4 +39,8 @@
 
 .oculto {
     display: none;
+}
+
+.btn-space {
+    margin-right: 5px;
 }

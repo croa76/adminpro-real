@@ -1,0 +1,61 @@
+<div class="row animated fadeIn">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+                <input #input (keyup)="buscarHospital( input.value )" type="text" class="form-control" placeholder="Buscar hospital">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="col-12">
+    <div class="card">
+        <div class="card-body">
+            <div class="text-right">
+                <button (click)="crearHospital()" type="button" class="btn waves-light btn-rounded btn-primary">
+                    <i class="fa fa-plus">  </i>
+                    Crear Hospital
+                </button>
+            </div>
+
+            <h3 class="card-title"> Hospitales registrados ( <small> {{ hospitalSrv.totalHospitales }}</small> )</h3>
+
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Hospital</th>
+                        <th>
+                            <button (click)=cargarHospitales() type="button" class="btn waves-light btn-rounded btn-primary">
+                                <i class="fa fa-refresh" aria-hidden="true"></i>
+                            </button>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let hospital of hospitales">
+                        <td>
+                            <img (click)="actualizarImagen( hospital )" [src]="hospital.img | imagen:'hospital'" class="img-50  pointer">
+                        </td>
+                        <td>
+                            <input [(ngModel)]="hospital.nombre" name="nombre" type="text" class="form-control" placeholder="Nombre del hospital">
+                        </td>
+                        <td>
+                            <button (click)="guardarHospital(hospital)" class="btn btn-primary btn-space">
+                                <i class="fa fa-save"> </i>
+                            </button>
+                            <button (click)="borrarHospital(hospital)" class="btn btn-danger btn-space">
+                                <i class="fa fa-trash-o"></i>
+                            </button>
+
+                        </td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>

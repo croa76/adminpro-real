@@ -39,6 +39,8 @@ export class UsuarioService {
     }
   }
   guardarStorage( id: string, token: string, usuario: Usuario ) {
+    console.log(token);
+
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
@@ -79,8 +81,8 @@ export class UsuarioService {
       map ( (resp: any) => {
         this.guardarStorage(resp.id, resp.token, resp.usuario);
         return true;
-      }))
-    ;
+      })
+      );
   }
 
   crearUsuario( usuarioIn: Usuario) {

@@ -1,3 +1,6 @@
+export { MedicoService } from '../services/medico/medico.service';
+
+export { HospitalService } from '../services/hospital/hospital.service';
 export { SubirArchivoService } from '../services/subir-archivo.service';
 export { LoginGuardGuard } from '../services/guards/login-guard.guard';
 export { UsuarioService } from '../services/usuario/usuario.service';
