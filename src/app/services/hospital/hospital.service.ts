@@ -35,7 +35,6 @@ export class HospitalService {
 
   borrarHospital( id: string ) {
     const url = `${URL_SERVICIOS}/hospital/${id}?token=${this.usuarioSrv.token}`;
-    console.log(url);
 
     return this.http.delete( url )
     .pipe (

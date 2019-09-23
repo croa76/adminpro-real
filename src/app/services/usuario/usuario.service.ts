@@ -22,12 +22,31 @@ export class UsuarioService {
 
   constructor(
     public http: HttpClient,
-    public router: Router, 
+    public router: Router,
     public subirArchivoSrv: SubirArchivoService
     ) {
       this.cargarStorage();
   }
 
+  renuevaToken() {
+    const url = `${URL_SERVICIOS}/login/renuevatoken?token=${this.token}`;
+    console.log('renuevaToken');
+    
+    return this.http.get(url,  {})
+      .pipe(
+        map( (resp: any) => {
+          this.token = resp.token;
+          localStorage.setItem('token', this.token) ;
+          return true;
+        }),
+        catchError(  err  => {
+          this.router.navigate(['/login']);
+          swal.fire('No se pudo renovar token', 'No fue posible renovar token', 'error');
+          return  Observable.throw( err );
+        })
+      );
+  }
+  
   estaAutenticado() {
     return (this.token.length > 5) ? true : false;
   }
@@ -37,7 +56,6 @@ export class UsuarioService {
       this.token = localStorage.getItem('token');
       this.usuario = JSON.parse( localStorage.getItem('usuario'));
       this.menu = JSON.parse( localStorage.getItem('menu'));
-      console.log('recuperar, ' , this.menu);
     } else {
       this.token = '';
       this.usuario = null;
@@ -45,8 +63,6 @@ export class UsuarioService {
     }
   }
   guardarStorage( id: string, token: string, usuario: Usuario, menu: any ) {
-    console.log(token);
-
     localStorage.setItem('id', id);
     localStorage.setItem('token', token);
     localStorage.setItem('usuario', JSON.stringify(usuario));
@@ -72,7 +88,6 @@ export class UsuarioService {
       .pipe(
         map( (resp: any) => {
           this.guardarStorage( resp.id, resp.token, resp.usuario, resp.menu);
-          console.log('el-menu-en-elstorage', resp.menu);
           return true;
         })
       );
@@ -94,7 +109,6 @@ export class UsuarioService {
           return true;
         }),
         catchError(  err  => {
-          console.log('el-error,', err.error.mensaje);
           swal.fire('Error al validar usuario', err.error.mensaje, 'error');
           return  Observable.throw( err );
         })
@@ -117,7 +131,6 @@ export class UsuarioService {
         return resp.usuario;
       }),
       catchError(  err  => {
-        console.log('el-error,', err.error.mensaje);
         swal.fire(err.error.mensaje, err.error.errors.message, 'error');
         return  Observable.throw( err );
       })
@@ -136,7 +149,6 @@ export class UsuarioService {
           swal.fire('Usuario actualizado', usuario.nombre, 'success');
         }),
         catchError(  err  => {
-          console.log('el-error,', err.error.mensaje);
           swal.fire(err.error.mensaje, err.error.errors.message, 'error');
           return  Observable.throw( err );
         })
@@ -149,10 +161,8 @@ export class UsuarioService {
       this.usuario.img = resp.usuario.img;
       swal.fire('Imagen actualizada', this.usuario.nombre + '-' + this.usuario.img, 'success');
       this.guardarStorage(id, this.token, this.usuario, this.menu);
-      console.log(this.usuario);
     })
     .catch ( resp => {
-      console.log(resp);
     });
   }
 
@@ -175,21 +185,3 @@ export class UsuarioService {
   }
 
 }
-
-
-// of("A", "B", "C", "D", "E").pipe(
-//   map(el => {
-//     if (el === "C") {
-//    throw new Error("Error occurred.");
-//     }
-//     return el;
-//   }),
-//   catchError(err => {
-//     console.error(err.message);
-//     console.log("Error is handled");
-//     return of("Z");
-//   })
-//  ).subscribe(el => console.log(el),
-//        err => console.error(err),
-//        () => console.log("Processing Complete.")
-//  ); 

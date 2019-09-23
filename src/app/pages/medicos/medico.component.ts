@@ -27,7 +27,6 @@ export class MedicoComponent implements OnInit {
       this.activatedRoute.params.subscribe( params => {
         const id = params[ 'id' ];
         if ( id !== 'nuevo') {
-          console.log( id ); 
           this.cargarMedico( id );
         }
       })
@@ -50,11 +49,7 @@ export class MedicoComponent implements OnInit {
 
     this.medicoSrv.guardarMedico( this.medico )
       .subscribe( medico => {
-        console.log('regresa guarda, ',  medico);
-
         this.medico._id = medico._id;
-        console.log('redirecciona');
-
         this.router.navigate([ '/medico', medico._id ]);
       });
 

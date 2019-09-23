@@ -10,10 +10,6 @@ export class SubirArchivoService {
 
   subirArchivo( archivo: File, tipo: string, id: string) {
 
-    console.log(archivo);
-    console.log(tipo);
-    console.log(id);
-
     return new Promise( (resolve , reject ) => {
       const formData = new FormData();
 
@@ -29,17 +25,14 @@ export class SubirArchivoService {
         // Solo me interesa el 4 (terminó de cargar el archivo)
         if (xhr.readyState === 4 ) {
           if (xhr.status === 200 ) {
-            console.log('Imagen cargó satisfactoriamente');
             resolve( JSON.parse(xhr.response));
           } else {
-            console.log('Falló la carga de archivo');
             reject( xhr.response);
           }
         }
       };
 
       const url = ` ${URL_SERVICIOS}/upload/${tipo}/${id}`;
-      console.log(url);
 
       xhr.open('PUT', url, true);
       xhr.send( formData);

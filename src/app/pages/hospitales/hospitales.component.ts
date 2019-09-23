@@ -34,7 +34,6 @@ export class HospitalesComponent implements OnInit {
   }
 
   borrarHospital( hospital: Hospital) {
-    console.log('borrarHospital');
     this.hospitalSrv.borrarHospital( hospital._id)
       .subscribe( () => this.cargarHospitales() );
   }
@@ -65,9 +64,7 @@ export class HospitalesComponent implements OnInit {
       }
     })
     .then ((resp: any ) => {
-      console.log(resp);
       if ( resp.dismiss) {return; }
-      console.log( 'continua' );
       this.hospitalSrv.crearHospital( resp.value )
       .subscribe(() => {
         this.cargarHospitales();

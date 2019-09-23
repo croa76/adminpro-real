@@ -23,12 +23,9 @@ export class MedicosComponent implements OnInit {
   }
 
   cargarMedicos() {
-    console.log('cargarMedicos');
 
     this.medicoSrv.cargarMedicos()
       .subscribe( medicos => this.medicos = medicos);
-    console.log('medicos:', this.medicos);
-
   }
 
   guardarMedico( medico: Medico) {
@@ -37,7 +34,6 @@ export class MedicosComponent implements OnInit {
   }
 
   borrarMedico( medico: Medico) {
-    console.log('borrarMedico');
     this.medicoSrv.borrarMedico( medico._id)
       .subscribe( () => this.cargarMedicos() );
   }
@@ -67,9 +63,7 @@ export class MedicosComponent implements OnInit {
       }
     })
     .then ((resp: any ) => {
-      console.log(resp);
       if ( resp.dismiss) {return; }
-      console.log( 'continua' );
       this.medicoSrv.crearMedico( resp.value )
       .subscribe(() => {
         this.cargarMedicos();
@@ -81,7 +75,6 @@ export class MedicosComponent implements OnInit {
     this.modalUploadSrv.mostrarModal( 'medicos', medico._id);
   }
   editarMedico( medico: Medico) {
-    console.log('editarMedico');
 
   }
 }

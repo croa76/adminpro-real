@@ -19,14 +19,10 @@ export class MedicoService {
 
   cargarMedicos() {
     let url = `${URL_SERVICIOS}/medico?token=${this.usuarioSrv.token}`;
-    console.log('url',url);
-    
     return this.http.get( url )
     .pipe (
        map ( (resp: any) => {
          this.totalMedicos = resp.total;
-         console.log(resp.medicos);
-         
          return resp.medicos;
       })
       );
@@ -35,8 +31,6 @@ export class MedicoService {
   
   borrarMedico( id: string ) {
     const url = `${URL_SERVICIOS}/medico/${id}?token=${this.usuarioSrv.token}`;
-    console.log(url);
-
     return this.http.delete( url )
     .pipe (
       map( resp => swal.fire('Medico borrado', 'Eliminado correctamente', 'success'))
@@ -58,7 +52,6 @@ export class MedicoService {
     if ( medico._id ) {
       swal.fire('Registro-existente', medico.nombre, 'success');
       url = `${URL_SERVICIOS}/medico/${medico._id}?token=${this.usuarioSrv.token}`;
-      console.log(url);
       
       return this.http.put(url, medico )
       .pipe (
@@ -95,7 +88,6 @@ export class MedicoService {
       .pipe (
         map( ( resp: any ) => {
           swal.fire('Médico actualizado', medico.nombre, 'success');
-          console.log('Respuesta del medico guardar ', resp);
           return resp.medico;
         })
       );
@@ -103,13 +95,9 @@ export class MedicoService {
 
   cargarMedico( id: string) {
     const url = `${URL_SERVICIOS}/medico/${id}`;
-    console.log(url);
-    
     return this.http.get ( url )
       .pipe(
         map( ( resp: any ) => {
-          console.log('resp,', resp);
-          
           return resp.medico;
         } )
       );

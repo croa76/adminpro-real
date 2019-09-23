@@ -39,10 +39,6 @@ export class BusquedaComponent implements OnInit {
           this.hospitales = respuesta.hospitales;
           this.medicos = respuesta.medicos;
           this.usuarios = respuesta.usuarios;
-
-          console.log(this.hospitales);
-          console.log(this.medicos);
-          console.log(this.usuarios);
         } );
 
   }
